@@ -2,7 +2,7 @@
 
 The file provided (```challenge.jpg```) contains the following QR Code:
 
-![challenge](/images/challenge.jpg)
+![challenge](./images/challenge.jpg)
 
 Using [Cyberchef](https://gchq.github.io/CyberChef/) **"Parse QR Code"** functionality allows to read it:
 
@@ -10,7 +10,7 @@ Using [Cyberchef](https://gchq.github.io/CyberChef/) **"Parse QR Code"** functio
 
 This **link** redirects to a very famous meme song (yes).
 
-![nevernevernever](/images/nggyu.png)
+![nevernevernever](./images/nggyu.png)
 
 The fragment identifier **(#PrinceProcessorCanHelpWithTheTitle)** is interesting. After searching on the web, i discovered that [princeprocessor](https://github.com/hashcat/princeprocessor) is a password candidate generator.
 
