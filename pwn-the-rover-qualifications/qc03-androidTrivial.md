@@ -30,11 +30,13 @@ As we can see, this function is just checking if the provided input matches with
 
 Android applications stores hardcoded strings into **```/res/values/strings.xml```**.
 
-By opening this file from the decompiled ```.apk``` we find among the various strings, the password value:
+By opening this file from the decompiled ```.apk``` we find among the various strings
 
-```xml
-     <string name="something_hidden">PTR{SpaceMayBeTheFinalFrontier}</string>
+```xml    
+    <string name="dialog_success">The password you just entered is the flag :)</string>
+    ...
+    <string name="something_hidden">PTR{SpaceMayBeTheFinalFrontier}</string>
 ```
 
-which appears to be the actual challenge flag
+So we discovered the password value as well as that it corresponds to the actual flag of this challenge.
 
