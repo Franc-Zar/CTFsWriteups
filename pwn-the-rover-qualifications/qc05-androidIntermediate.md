@@ -73,7 +73,7 @@ The below reported array is interesting:
 
 it is inizialized with 19 bytes elements i.e. number of elements equal to flag length.
 
-The code now reported appears to implemented the core functionalities of the whole function:
+The code now reported seems to implement the core functionalities of the whole function:
 
 ```c
   p_Var6 = (*(*param_1)->NewStringUTF)(param_1,"FALSE");
