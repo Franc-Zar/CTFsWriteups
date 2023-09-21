@@ -77,7 +77,6 @@ To decode the password/flag we write a simple python script to map back each emo
     }
 
     flag = ""
-    found = None
 
     for c in enc_flag:
         for key, value in dictionary.items():
