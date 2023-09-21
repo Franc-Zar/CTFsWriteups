@@ -38,5 +38,5 @@ By opening this file from the decompiled ```.apk``` we find among the various st
     <string name="something_hidden">PTR{SpaceMayBeTheFinalFrontier}</string>
 ```
 
-So we discovered the password value as well as that it corresponds to the actual flag of this challenge.
+So we discovered the password value which corresponds to the actual flag of this challenge.
 
