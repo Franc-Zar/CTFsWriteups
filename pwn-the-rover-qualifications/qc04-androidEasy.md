@@ -64,7 +64,7 @@ Let's see how ```change``` method is implemented:
     }
 ```
 
-As we can see, for each alphabet letter a corresponding class is defined which is returning a given emoji to encode the former.
+As we can see, for each alphabet letter a corresponding class is defined which is returning a given emoji to encode the original letter itself.
 
 To decode the password/flag we write a simple python script to map back each emoji to its corresponding alphabet letter:
 
