@@ -21,7 +21,7 @@ After a little of anaylisis on requests using Burpsuite, i noticed the following
 
 2. the **"Go To Profile**" button is showing the personal page of the user according to its role, which is retrieved from the jwt token itself
 
-I firs tried to forge a JWT token in the following way:
+I first tried to forge a JWT token in the following way:
 
 ```json
 {
