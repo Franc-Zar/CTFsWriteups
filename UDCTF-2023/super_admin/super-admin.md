@@ -38,7 +38,7 @@ I first tried to forge a JWT token in the following way:
 
 but it didn't work; it was clear at this point that the token must be correctly signed in order to be accepted.
 
-I used Hashcat to perform a dictionary attack on the server JWT token and try recover the password used to perform the signature:
+I used Hashcat to perform a dictionary attack on the server JWT token and try recover the key used to perform the signature:
 
     hashcat -a 0 -m 16500 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTY5ODc1NTg2N30.5UFbyVeIZKq6aSffUWMZNmehBCLJm6HlesdJ1HuJcpk" rockyou.txt
 
@@ -48,5 +48,5 @@ and it worked:
 
 At this point i was able to forge a valid "admin" JWT and obtain the flag:
 
-    HTMLUDCTF{k33p_17_51mp13_57up1d_15_4_l1e}
+    UDCTF{k33p_17_51mp13_57up1d_15_4_l1e}
 
