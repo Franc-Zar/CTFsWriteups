@@ -89,7 +89,7 @@ if len(code) != 2 or "'" in code:
 
 length of provided code should == 2 and no apostrophe should be inside it. So basically you cannot provide strings different from a country code (e.g. IT).
 
-However this check can be easily bypassed because there is no check on what `code` type actually is:
+However this condition can be easily bypassed because there is no check on what `code` type actually is:
 
 ```python
 >>> code = ["I can write anything i want", "and code length will be always two"] 
@@ -106,8 +106,7 @@ At this point, since we know how to bypass the check and our input will reach th
 sql = f"SELECT name FROM country WHERE code=UPPER('{code}')"
 ```
 
-The problem of sending an array is that we will need to escape the `[ ]` inside the `UPPER()` function;
-after some attempts:
+The problem of sending an array is that we will need to escape the `[ ]` inside the `UPPER()` function, while at the same time it is necessary to close the `UPPER` function's parentheses ` ) `; after some attempts:
 
 ```json
 {
