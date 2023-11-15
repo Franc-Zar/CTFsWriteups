@@ -2,7 +2,7 @@
 
 The challenge consists of a basic web application which allows to insert country code and returns the associated country name:
 
-![overview](../country_db.png)
+![overview](./country_db.png)
 
 Let's look at the main application source code files:
 
