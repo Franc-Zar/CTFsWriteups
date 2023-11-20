@@ -202,6 +202,7 @@ def register_user(username):
     token = json.loads(base64.b64decode(token).decode())
     return token
 
+# forge a new iv which forces b"false" -> b" true" and compute the new resulting token
 def forge_token(token, user_dict_leak, server_iv):  
     new_admin_value = b" true"
     flipped_iv = bytearray(server_iv)
