@@ -178,7 +178,7 @@ $C'_{i-1} = C_{i-1} \oplus x$
 
 $N_i = Dec(K, C_i) \oplus C'_{i-1}$
 
-$N_i = P'_{i} \oplus C_{i-1} \oplus x$
+$N_i = P'_i \oplus C_{i-1} \oplus x$
 
 $N_i = P_i \oplus x$
 
