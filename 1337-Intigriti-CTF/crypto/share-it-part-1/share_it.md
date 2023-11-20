@@ -169,25 +169,20 @@ According to CBC mode behavior, in order to recover the original plaintext block
 
 In formulas:
 
-$P'_i = Dec(K, C_i)$
-
-$P_i = P'_i \oplus C_{i-1}$
+$P'_i = Dec(K, C_i) \\
+P_i = P'_i \oplus C_{i-1}$
 
 If there is a leak about $P_i$, it is possible to modify $C_{i-1}$ by XORing it with a new byte sequence $x$ (obtaining a new ciphertext block $C'_{i-1}$) in order to force the decrypted data to be a new block $N_i$:
 
-$C'_{i-1} = C_{i-1} \oplus x$
-
-$N_i = Dec(K, C_i) \oplus C'_{i-1}$
-
-$N_i = P'_i \oplus C_{i-1} \oplus x$
-
-$N_i = P_i \oplus x$
+$C'_{i-1} = C_{i-1} \oplus x \\
+N_i = Dec(K, C_i) \oplus C'_{i-1} \\
+N_i = P'_i \oplus C_{i-1} \oplus x \\
+N_i = P_i \oplus x$
 
 But since $P_i$ is known, it is possible to craft $x$ in order to completely replace the final decrypted value with a new block $y$:
 
-$x = P_i \oplus y$
-
-$N_i = P_i \oplus x = P_i \oplus P_i \oplus y = y$
+$x = P_i \oplus y \\
+N_i = P_i \oplus x = P_i \oplus P_i \oplus y = y$
 
 The main issue with this attack is that, in order to replace $P_i$ with $y$, the ciphertext block $C_{i-1}$ needs to be manipulated accordingly: as a direct consequence, $P_{i-1}$ will be corrupted and result in an unpredictable byte sequence when decrypted.
 
