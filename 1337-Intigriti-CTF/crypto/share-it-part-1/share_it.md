@@ -169,8 +169,8 @@ According to CBC mode behavior, in order to recover the original plaintext block
 
 In formulas:
 
-$`P'_i = Dec(K, C_i) \\
-P_i = P'_i \oplus C_{i-1}`$
+$`P'_i = Dec(K, C_i)`$
+$`P_i = P'_i \oplus C_{i-1}`$
 
 If there is a leak about $P_i$, it is possible to modify $C_{i-1}$ by XORing it with a new byte sequence $x$ (obtaining a new ciphertext block $C'_{i-1}$) in order to force the decrypted data to be a new block $N_i$:
 
