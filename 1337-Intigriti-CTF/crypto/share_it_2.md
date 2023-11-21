@@ -287,7 +287,7 @@ except:
 
 By running the same operation locally, the following output is obtained:
 
-```
+```python
 >>> json.loads(b'{"username": "AA", "first_name": "AAAAAAAAAAAAA", "last_name": "\xed\x11a\xd64\xe3\x1fv\x8fY\xf1y\x9b=5\x11", "admin":  true}')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
