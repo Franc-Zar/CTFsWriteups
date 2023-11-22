@@ -189,7 +189,7 @@ $`x = P_i \oplus y `$
 
 $`N_i = P_i \oplus x = P_i \oplus P_i \oplus y = y`$
 
-The main issue with this attack is that, in order to replace $P_i$ with $y$, the ciphertext block $C_{i-1}$ needs to be manipulated accordingly: as a direct consequence, $P_{i-1}$ will be corrupted and result in an unpredictable byte sequence when decrypted.
+The main issue with this attack is that, in order to replace $P_i$ with $y$, the ciphertext block $C_{i-1}$ needs to be manipulated accordingly: as a direct consequence, $P_{i-1}$ will be corrupted and result in an unpredictable byte sequence when decrypted (as shown in the above image).
 
 In this case the attack will be successful because the iv is not an actual ciphertext block (= $C_0$) and its value is not checked by the server to be one initially sent to the client (meaning that the `iv` manipulation is not detected during decryption phase).
 
