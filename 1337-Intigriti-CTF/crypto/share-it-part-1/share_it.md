@@ -43,16 +43,12 @@ def decrypt_cookie(cookie):
     cookie_dict = json.loads(base64.b64decode(cookie).decode())
     iv = base64.b64decode(cookie_dict['iv'].encode())
     cipher = AES.new(key, AES.MODE_CBC, iv=iv)
-    dec_token = cipher.decrypt(base64.b64decode(cookie_dict['user_dict'].encode()))
-    unpadded_token = unpad(dec_token, 16)
-    user_dict = json.loads(unpadded_token)
-    print(user_dict)
-    return user_dict
+    return json.loads(unpad(cipher.decrypt(base64.b64decode(cookie_dict['user_dict'].encode())), 16))
+
 
 @app.route("/")
 def index():
     cookie = request.cookies.get("token")
-    print(cookie)
     if cookie == None:
         return redirect(url_for('register'))
     else:
@@ -80,15 +76,12 @@ def register():
 @app.route("/admin-opinions")
 def admin():
     cookie = request.cookies.get("token")
-    print(cookie)
     if cookie == None:
         return redirect(url_for('register'))
     else:
         try:
             user_dict = decrypt_cookie(cookie)
-            print(user_dict)
-        except Exception as e:
-            print(e)
+        except:
             return redirect(url_for('register'))
         if not user_dict['admin'] == True:
             return "<p>Only admins are allowed to read these cool opionons</p>", 403
@@ -98,7 +91,7 @@ def admin():
 
 if __name__ == '__main__':
     print("Starting app...")
-    app.run(debug=True, host='localhost', port=5000)
+    serve(app, host='0.0.0.0', port='5000')
 ```
 
 This is a basic web application allowing users to sign up and access to some mock functionalities;
@@ -164,6 +157,7 @@ the whole dictionary is then base64 encoded and set into a client's cookie named
 In order to be allowed to access `/admin-opinions` and obtain the flag it is necessary to inject a token with `admin` set to `True`; since the server is sending to the client the `iv`, it is possible to perform without particular complications a [cbc-mode bit-flipping attack](https://zhangzeyu2001.medium.com/attacking-cbc-mode-bit-flipping-7e0a1c185511).
 
 ![bit_flipping_issue](./bit_flipping_issue.png)
+*Bit-flipping attack issue: just one manipulation of the $`C_{i-1}`$ nth byte (in red), in order to manipulate the corresponding nth byte of the decrypted plaintext block $`P_i`$, results in the corruption of the whole corresponding block $`P_{i-1}`$*
 
 According to CBC mode behavior, in order to recover the original plaintext block $`P_i`$, the corresponding ciphertext block $`C_i`$ must be first decrypted: the result is an intermediate block $`P'_i`$ which after being XORed with the previous ciphertext block $`C_{i-1}`$ results in the actual plaintext block $`P_i`$.
 
