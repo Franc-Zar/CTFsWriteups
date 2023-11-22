@@ -158,7 +158,7 @@ In order to be allowed to access `/admin-opinions` and obtain the flag it is nec
 
 ![bit_flipping_issue](./bit_flipping_issue.png)
 
-_Bit-flipping attack issue: just one manipulation of the $`C_{i-1}`$ nth byte (in red), in order to manipulate the corresponding nth byte of the decrypted plaintext block $`P_i`$, results in the corruption of the whole corresponding block $`P_{i-1}`.$_
+_Bit-flipping attack issue: just one manipulation of the $`C_{i-1}`$ nth byte (in red), in order to manipulate the corresponding nth byte of the decrypted plaintext block $`P_i`$, results in the corruption of the whole corresponding block $`P_{i-1}`$._
 
 According to CBC mode behavior, in order to recover the original plaintext block $`P_i`$, the corresponding ciphertext block $`C_i`$ must be first decrypted: the result is an intermediate block $`P'_i`$ which after being XORed with the previous ciphertext block $`C_{i-1}`$ results in the actual plaintext block $`P_i`$.
 
