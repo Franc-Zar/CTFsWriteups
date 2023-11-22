@@ -138,7 +138,7 @@ if __name__ == '__main__':
     serve(app, host='0.0.0.0', port='5000')
 ```
 
-The application is similar to the previous version, but with some modifications;
+The application is similar to the previous version, already described in the [corresponding writeup](../share-it-part-1/share_it.md), but with some modifications;
 in particular, this time the server is no more sending to the client the actual `iv` used to encrypt the `user_dict`, but only its identifier, in order to be later retrieved from the server-side dictionary in which all users ivs are stored, when authorization process is triggered:
 
 ```python
