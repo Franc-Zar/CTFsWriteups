@@ -118,7 +118,7 @@ The `_id` of the database record is the double md5 of the challenge number: we e
 True
 ```
 
-As we can see below, the application is vulnerable to **Blind Injection attacks**: if a correct query is executed, meaning the result is not Null, the application will return the message `"correct flag!"`:
+As we can see below, the application is vulnerable to [Blind NoSQL Injection attacks](https://portswigger.net/web-security/nosql-injection): if a correct query is executed, meaning the result is not Null, the application will return the message `"correct flag!"`:
 
 ```python
 @app.route('/submit_flag',methods=['POST'])
