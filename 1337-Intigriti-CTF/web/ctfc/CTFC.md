@@ -168,7 +168,7 @@ In our case, the pattern `"INTIGRITI{"` describe the following condition that `"
 
 2. `"INTIGRITI{"` &rightarrow; matches the literal string
 
-meaning that the query will be successful and return the actual challenge flag anytime the pattern is correctly representing the substring of the flag itself from the beginning to the last discovered character (in this case `"{"`): in this case the server response to our request will be indeed `"correct flag!"`.
+meaning that the query will be successful and return the actual challenge flag anytime the pattern is correctly representing the substring of the flag itself from the beginning to the last discovered character (in this case `"{"`): the server response to our request will be indeed `"correct flag!"`.
 
 We can leverage this vulnerability to iterate, for each left character to be discovered of the flag, through all the possibles printable characters and add them to the valid pattern known so far:
 
