@@ -162,7 +162,7 @@ We can achieve this result using the `$regex` operator by defining as pattern `"
 
 In MongoDB, the `$regex` operator is used to perform regular expression matching in queries. It allows you to find documents in a collection where a specified field matches a regular expression pattern.
 
-In our case, the pattern `"INTIGRITI{"` describe the following condition that `$regex` must respect:
+In our case, the pattern `"INTIGRITI{"` describe the following condition that `"challenge_flag"` must respect:
 
 1. `^` &rightarrow; anchors the regex at the beginning of the string.
 
