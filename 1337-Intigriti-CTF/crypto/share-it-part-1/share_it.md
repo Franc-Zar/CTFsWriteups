@@ -136,7 +136,7 @@ user_dict['admin'] == True
 user_dict = {'admin': False, 'username': username},
 ```
 
-where `username` is the actual username chosen by the user during sign up, while `admin` is by default set to False (i.e. no admin account can be created).
+where `username` is the actual username chosen by the user during sign up, while `admin` is by default set to `False` (i.e. no admin account can be created).
 
 ```python
 def gen_encrypted_cookie(username):
