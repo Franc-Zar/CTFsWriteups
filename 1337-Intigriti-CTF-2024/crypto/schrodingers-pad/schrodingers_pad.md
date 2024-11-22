@@ -168,7 +168,7 @@ it implements a basic **<i>stream cipher</i>**, that produces a keystream by sim
 
 The `otp()` encryption algorithm is determined by the following formula:
 
-$$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ \text{...} \ len(p) - 1 $$
+$`c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ \text{...} \ len(p) - 1`$
 
 The server after having sent the encrypted flag, is accepting client inputs:
 
@@ -239,7 +239,7 @@ It is possible to leverage the client capability to encrypt a message to perform
 
 This is feasible because:
 
-1. both operations of `cat_session` are determistic and reversible.
+1. both operations of `check_cat_box()` are determistic and reversible.
 2. `c_ciphertext` is provided together with the `cat_state`, which enables to identify the set of operations to reverse for each byte `c_ciphertext[i]` in order to recover `ciphertext[i]` and ultimately obtain `ciphertext`.
 
 The following formulas represent the `check_cat_box()` inverse operations:
