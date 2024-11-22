@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
 ```
 
-Below is a detailed analysis of the parts of the code that are of interest in understanding the server vulnerability and thus solving the challenge.
+Below is a detailed analysis of the parts of the code that are relevant to understanding the server vulnerability and thus solving the challenge.
 
 `handle_client()` implements the main logic exposed by the server.
 In particular it performs the following operations:
@@ -146,7 +146,7 @@ KEY = ''.join(random.choices(string.ascii_letters + string.digits, k=160)).encod
 ```
 
 The previous operation generates a 160-character session key composed of ASCII letters (both uppercase and lowercase) and digits, then encodes it into bytes.
-The key is re-computed in different sessions but is persistent in the .
+The key is re-computed in different sessions but is persistent in the same one.
 
 ```python
 client_socket.send(
@@ -168,7 +168,7 @@ it implements a basic **<i>stream cipher</i>**, that produces a keystream by sim
 
 The `otp()` encryption algorithm is determined by the following formula:
 
-$`c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ \text{...} \ len(p) - 1`$
+$$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ \text{...} \ len(p) - 1 $$
 
 The server after having sent the encrypted flag, is accepting client inputs:
 
@@ -227,20 +227,20 @@ In order:
       
         $`c_i' = (\left( (c_i \gg 1) \, | \, (c_i \ll 7) \right) \, \& \, \text{0xFF}) \oplus \text{0xCA}`$
 
-    $`c_i`$ is right-shifted of one 1 ($`\gg`$), i.e., divided by 2; $c_i$ is also left-shifted of 7 positions ($`\ll`$), i.e., multiplied by $`2^{7} = 128`$; the outcome of the previous shifts are combined in a or ( | ) operation; previous result is used to perform a bitwise AND with 0xFF = 11111111; the outcome of the previous operation is finally XORed with 0xCA = 11001010.
+    $`c_i`$ is right-shifted of one 1 ($`\gg`$), i.e., divided by 2; $c_i$ is also left-shifted of 7 positions ($`\ll`$), i.e., multiplied by $`2^{7} = 128`$; the outcome of the previous shifts are combined in a or ( | ) operation; previous result is used to perform a bitwise AND with 0xFF = 11111111; the outcome of the last operation is finally XORed with 0xCA = 11001010.
 
 
-4. the server finally returns the hex-encoded final result `c_ciphertext` and the used `cat_state` ("alive" = 1, "dead" = 0) to the client and close the connection.
+4. the server finally returns the hex-encoded result `c_ciphertext` and the used `cat_state` ("alive" = 1, "dead" = 0) to the client and closes the connection.
 
 
 ## Exploit
 
-It is possible to leverage the client capability to encrypt a message to perform a **<i>chosen plaintext attack</i>**, recover the session key and then use it to decrypt the flag.
+It is possible to leverage the client's capability to encrypt a message to perform a **<i>chosen plaintext attack</i>**, recover the session key and then use it to decrypt the flag.
 
 This is feasible because:
 
 1. both operations of `check_cat_box()` are determistic and reversible.
-2. `c_ciphertext` is provided together with the `cat_state`, which enables to identify the set of operations to reverse for each byte `c_ciphertext[i]` in order to recover `ciphertext[i]` and ultimately obtain `ciphertext`.
+2. `c_ciphertext` is provided together with the `cat_state`, which enables the identification of the set of operations to reverse for each byte `c_ciphertext[i]` to recover `ciphertext[i]` and ultimately obtain `ciphertext`.
 
 The following formulas represent the `check_cat_box()` inverse operations:
 
@@ -252,7 +252,7 @@ The following formulas represent the `check_cat_box()` inverse operations:
 
     $`c_i = \left( \left(c_i' \oplus \text{0xCA} \right) \ll 1) \ \& \ \text{0xFF} \right) \, | \, \left( \left(c_i' \oplus \text{0xCA} \right) \gg 7 \right)`$
 
-The implementation of the previous formulas in python code:
+The implementation of the previous formulas in Python code:
 
 ```python
 def reverse_check_cat_box(transformed, cat_state):
@@ -270,7 +270,7 @@ def reverse_check_cat_box(transformed, cat_state):
 
 To recover the session key is sufficient to send a chosen plaintext such as `\x00 * MAX_LENGTH`, i.e., a null-byte sequence of length equal to key length.
 
-Then it is necessary to retrieve the server encrypted output `c_ciphertext` and `cat_state`, reverse `check_cat_box` manipulations with the function defined above, and then, since the plaintext is chosen and known, guess the key one byte at a time by attempting decryption of each `ciphertext` byte `ciphertext[i]` until it is correctly decrypted.
+Then, it is necessary to retrieve the server encrypted output `c_ciphertext` and `cat_state`, reverse `check_cat_box` manipulations with the function defined above, and, since the plaintext is chosen and known, guess the key one byte at a time by attempting decryption of each `ciphertext` byte `ciphertext[i]` until it is correctly decrypted.
 Once the client chosen message has been decrypted, the key is discovered.
 
 ```python
