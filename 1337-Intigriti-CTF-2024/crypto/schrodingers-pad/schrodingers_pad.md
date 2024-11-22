@@ -218,8 +218,8 @@ In order:
     This function provides additional unpredictability to the nominal ciphertext, according to the provided `cat_state` value and returns the resulting bytes:
 
     * `cat_state == 1`: each ciphertext byte is manipulated as follows:
-      
-    $$ c_i' = ((c_i \ll 1) \ \& \ \text{0xFF})) \oplus \text{0xAC} $$
+
+$$ c_i' = ((c_i \ll 1) \ \& \ \text{0xFF})) \oplus \text{0xAC} $$
       
     $c_i$ is left-shifted ($\ll$) of 1 position, i.e., multiplied by 2; the outcome is used to perform a bitwise AND (&) with 0xFF = 11111111 to ensure that only the least significant 8 bits are retained; in the end, the previous result is XORed with 0xAC = 10101100.
 
