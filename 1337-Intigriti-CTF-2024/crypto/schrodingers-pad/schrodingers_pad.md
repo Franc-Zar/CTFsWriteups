@@ -168,7 +168,7 @@ it implements a basic **<i>stream cipher</i>**, that produces a keystream by sim
 
 The `otp()` encryption algorithm is determined by the following formula:
 
-$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ ...\ len(p) - 1 $
+$$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ ...\ len(p) - 1 $$
 
 The server after having sent the encrypted flag, is accepting client inputs:
 
