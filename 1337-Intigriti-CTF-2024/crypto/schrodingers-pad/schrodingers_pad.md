@@ -168,7 +168,7 @@ it implements a basic **<i>stream cipher</i>**, that produces a keystream by sim
 
 The `otp()` encryption algorithm is determined by the following formula:
 
-$$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ ...\ len(p) - 1 $$
+$$ c_i = p_i \oplus k_{i \mod len(k) - 1} \ \ \ \forall i = 0 \ \text{...} \ len(p) - 1 $$
 
 The server after having sent the encrypted flag, is accepting client inputs:
 
@@ -219,18 +219,15 @@ In order:
 
     * `cat_state == 1`: each ciphertext byte is manipulated as follows:
 
-$$ c_i' = ((c_i \ll 1) \ \& \ \text{0xFF})) \oplus \text{0xAC} $$
+        $`c_i' = ((c_i \ll 1) \ \& \ \text{0xFF})) \oplus \text{0xAC}`$
       
-    $c_i$ is left-shifted ($\ll$) of 1 position, i.e., multiplied by 2; the outcome is used to perform a bitwise AND (&) with 0xFF = 11111111 to ensure that only the least significant 8 bits are retained; in the end, the previous result is XORed with 0xAC = 10101100.
+    $`c_i`$ is left-shifted ($`\ll`$) of 1 position, i.e., multiplied by 2; the outcome is used to perform a bitwise AND (&) with 0xFF = 11111111 to ensure that only the least significant 8 bits are retained; in the end, the previous result is XORed with 0xAC = 10101100.
 
-    * `cat_state == 0`: each ciphertext byte is manipulated as follows: 
-    <div style="text-align: center;">
+    * `cat_state == 0`: each ciphertext byte is manipulated as follows:
+      
+        $`c_i' = (\left( (c_i \gg 1) \, | \, (c_i \ll 7) \right) \, \& \, \text{0xFF}) \oplus \text{0xCA}`$
 
-    $ c_i' = (\left( (c_i \gg 1) \, | \, (c_i \ll 7) \right) \, \& \, \text{0xFF}) \oplus \text{0xCA} $
-
-    </div>
-
-    $c_i$ is right-shifted of one 1 ($\gg$), i.e., divided by 2; $c_i$ is also left-shifted of 7 positions ($\ll$), i.e., multiplied by $2^{7} = 128$; the outcome of the previous shifts are combined in a or ( | ) operation; previous result is used to perform a bitwise AND with 0xFF = 11111111; the outcome of the previous operation is finally XORed with 0xCA = 11001010.
+    $`c_i`$ is right-shifted of one 1 ($`\gg`$), i.e., divided by 2; $c_i$ is also left-shifted of 7 positions ($`\ll`$), i.e., multiplied by $`2^{7} = 128`$; the outcome of the previous shifts are combined in a or ( | ) operation; previous result is used to perform a bitwise AND with 0xFF = 11111111; the outcome of the previous operation is finally XORed with 0xCA = 11001010.
 
 
 4. the server finally returns the hex-encoded final result `c_ciphertext` and the used `cat_state` ("alive" = 1, "dead" = 0) to the client and close the connection.
@@ -248,18 +245,12 @@ This is feasible because:
 The following formulas represent the `check_cat_box()` inverse operations:
 
 * `cat_state == "alive"`: 
-    <div style="text-align: center;">
 
-    $ c_i = ((c_i' \oplus \text{0xAC}) \gg 1) $
-
-    </div>
+    $`c_i = ((c_i' \oplus \text{0xAC}) \gg 1)`$
 
 * `cat_state == "dead"`: 
-    <div style="text-align: center;">
 
-    $c_i = \left( \left(c_i' \oplus \text{0xCA} \right) \ll 1) \ \& \ \text{0xFF} \right) \, | \, \left( \left(c_i' \oplus \text{0xCA} \right) \gg 7 \right) $
-
-    </div>
+    $`c_i = \left( \left(c_i' \oplus \text{0xCA} \right) \ll 1) \ \& \ \text{0xFF} \right) \, | \, \left( \left(c_i' \oplus \text{0xCA} \right) \gg 7 \right)`$
 
 The implementation of the previous formulas in python code:
 
