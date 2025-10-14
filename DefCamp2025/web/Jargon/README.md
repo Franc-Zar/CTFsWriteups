@@ -152,7 +152,7 @@ In this case, `Exploit.readObject` invokes `Runtime.getRuntime().exec(cmd)`, ena
 
 ### RCE via Insecure Deserialization
 
-I recreated `ctf.jargon.Exploit` locally and serialized an instance with an attacker-controlled command:
+I recreated `ctf.jargon.Exploit` locally and serialized instances with the following script:
 
 ```java
 import ctf.jargon.Exploit;
