@@ -98,7 +98,7 @@ This request returned the file contents as expected:
 
 ## Exploit
 
-The main exploit starts from the newly verified presence of **LFI**, through which it is possible to list the content of the web app filesystem:
+The main exploit starts from the acknowledged presence of **LFI**, through which it is possible to list the content of the web app filesystem:
 
 ```bash
 $ curl 'https://challenge-1025.intigriti.io/challenge.php?url=file:///http/../var/www/html
