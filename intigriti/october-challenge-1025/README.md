@@ -138,7 +138,7 @@ if (isset($_GET['url'])) {
 
 The filesystem contents are listed because the server’s `curl` binary has been compiled with directory listing support, allowing it to output the contents when the specified path is a directory.
 The PHP `curl_init` function can access any filesystem path that the PHP process has permission to read, including paths outside the web root, such as `/etc/`.
-This content is returned via **PHP/cURL** and is not served directly by Apache.
+This content is returned via **PHP/cURL** and is not served directly by Apache[^1].
 
 To better understand how the web server handles requests, controls access, and serves content, it is useful to inspect the **Apache configuration** files.
 Files such as `/etc/apache2/sites-enabled/000-default.conf` define which directories the web server can access, which directories allow automatic listings, and which are restricted.
@@ -177,7 +177,7 @@ Reviewing them clarifies how **Apache** manages filesystem access and interacts 
 
 * In addition, the **Apache configuration** limits access to a **previously undisclosed** PHP endpoint, `upload_shoppix_images.php`, based on the value of the `is-shoppix-admin` request header.
 
-[1^] the PHP/cURL listing already allows arbitrary filesystem exploration and retrieval of individual files (so the flag can be obtained); however, the challenge goal is to demonstrate a chained **RCE**, so testing will continue beyond file disclosure.
+[^1]: the PHP/cURL listing already allows arbitrary filesystem exploration and retrieval of individual files (so the flag can be obtained); however, the challenge goal is to demonstrate a chained **RCE**, so testing will continue beyond file disclosure.
 
 The **image upload handler** implementation is shown in the code below:
 ```php
