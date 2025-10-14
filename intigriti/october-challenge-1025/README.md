@@ -177,7 +177,7 @@ Reviewing them clarifies how **Apache** manages filesystem access and interacts 
 
 * In addition, the **Apache configuration** limits access to a **previously undisclosed** PHP endpoint, `upload_shoppix_images.php`, based on the value of the `is-shoppix-admin` request header.
 
-[^1]: The **PHP/cURL** listing currently permits **arbitrary** filesystem enumeration and **retrieval** of individual files (which may expose the flag); however, the challenge’s objective is to demonstrate a chained **RCE**, so testing will continue beyond simple file disclosure.
+[^1]: The **PHP/cURL** listing currently permits **arbitrary** filesystem enumeration and **retrieval** of individual files (which also expose the flag); however, the challenge’s objective is to demonstrate a chained **RCE**, so testing will continue beyond simple file disclosure.
 
 The **image upload handler** implementation is shown in the code below:
 ```php
