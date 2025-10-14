@@ -215,7 +215,7 @@ The upload handler merely validates the filename extension and relies on `mime_c
 Both controls are inadequate: it is possible to make non-image content appear as an image by prepending a valid **image magic header**, tampering with the actual file's **MIME type**; 
 if the `uploads/` directory permits PHP execution the application can be abused to place a file the server will **serve** and **execute** as a `.php` resource.
 
-What previously presented is the main idea of the next step of the **exploit**:
+What previously presented is the main idea of the next steps of the **exploit**:
 1. implement a PHP **web shell** which accepts a **command** and its **arguments** as query parameters (`cmd`, `args`) and returns the execution output; the following code shows a possible implementation of the latter:
 
 ```php
