@@ -87,7 +87,7 @@ However, in this case the secret key does not appear to be weak or guessable.
 
 A more subtle attack vector arises from an improper implementation of the **JWT validation workflow**. 
 In some flawed setups, servers incorrectly accept tokens with no signature (i.e. algorithm set to `none` in header block), or fail to enforce algorithm verification. 
-If such a misconfiguration is present, it could be possible to bypass authentication entirely by crafting an unsigned token as below:
+If such a misconfiguration is present, it could be possible to bypass authorization entirely by crafting an unsigned token as below:
 
 ```json
 # header
