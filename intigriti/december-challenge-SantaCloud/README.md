@@ -20,6 +20,20 @@ Repeat your attack against the [challenge server](https://santacloud.intigriti.i
 
 ## TL;DR
 
+* Identified exposed backend APIs under `/api/` and disallowed files via `robots.txt`
+
+* Discovered an accessible backup file (`/composer.json~`) leaking credentials
+
+* Logged in using leaked credentials (elf_supervisor)
+
+* Enumerated users via `/api/users`, identifying a higher-privileged admin account
+
+* Discovered an unlinked `/api/notes` endpoint
+
+* Exploited an **IDOR** vulnerability by querying notes with `/api/notes?user_id=1`
+
+* Retrieved private admin notes, including the flag `INTIGRITI{019b118e-e563-7348-a377-c1e5f944bb46}`
+
 ## Analysis
 
 The target is a **black-box web application** implementing a supply-chain portal for coordinating Christmas gifts, a system of... debatable usefulness.
@@ -258,7 +272,7 @@ const url = noteId ? `/api/notes/${noteId}` : "/api/notes";
 Notes are indexed and individually retrievable by their ID.
 While this behavior is not inherently vulnerable, a lack of proper access control could lead to an **Insecure Direct Object Reference (IDOR)**.
 
-Moreover, the JSON response format hints that notes can be queried on a per-user basis, likely using a parameter such as `?user_id=<id>`.
+Moreover, the JSON response format hints that notes can be queried on a per-user basis, likely using a parameter such as `/api/notes?user_id=<id>`.
 
 If the latter approach works, it is the more efficient choice, since the user base and their IDs are already known.
 Blindly enumerating individual notes would likely provide little value.
