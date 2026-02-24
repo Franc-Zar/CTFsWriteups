@@ -127,6 +127,11 @@ Browsers normally block **fetch** or **XMLHttpRequest** calls from one domain to
 
 JSONP works by returning executable JavaScript rather than raw JSON; the client provides the callback function name as a query parameter, and the server reflects this value directly into the response, wrapping the JSON payload inside a dynamically generated function call.
 
+The client code responsible for rendering and displaying user posts is partially presented below and comes from `/app/static/js/preview.js`.
+
+The application fetches user-submitted post content from `/api/render` on the client-side and inserts it directly into the **DOM** using `innerHTML`. 
+It then processes code blocks for highlighting and reinjects any `<script src="/api/...">` tags.
+
 ```javascript
 fetch('/api/render?id=' + postId)
         .then(function(response) {
@@ -157,14 +162,28 @@ fetch('/api/render?id=' + postId)
             }
         });
     }
-```
-
-The application fetches user-submitted post content from `/api/render` on the client-side and inserts it directly into the **DOM** using `innerHTML`. 
-It then processes code blocks for highlighting and reinjects any `<script src="/api/...">` tags. 
+``` 
 
 ## Exploit
 
-Because the content is not sanitized or escaped, this creates a Stored DOM-based Cross-Site Scripting (XSS) vulnerability, allowing arbitrary JavaScript from user posts to execute in other users’ browsers.
+The target is vulnerable to **DOM-based XSS** due to the way it handles user‑controlled HTML and script elements in the front‑end rendering flow.
 
+The vulnerable behavior occurs in two steps:
+
+1. Unsanitized user HTML is written directly to `innerHTML`:
+    ```javascript
+    preview.innerHTML = data.html;
+    ```
+    * the value of `data.html` comes from user-generated posts and is inserted directly into the DOM without any sanitisation or escaping;
+    * this makes the innerHTML assignment a **DOM sink**, allowing an attacker to inject arbitrary HTML, including `<script>`.
+
+2. `processContent()` actively re‑injects attacker‑supplied scripts into the live DOM:
+    * after rendering the HTML, the code searches for any `<script>` elements inside the untrusted content;
+    * this logic takes any script with a `src` attribute containing `/api/` and:
+        * creates a new real `<script>` element;
+        * copies the attacker‑controlled URL into `newScript.src`;
+        * appends it to the page, forcing the browser to load and execute it.
+
+This “script reinjection” behavior acts as an **XSS gadget** and at this point the last 
 
 
