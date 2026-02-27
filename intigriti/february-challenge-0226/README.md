@@ -45,7 +45,7 @@ Get started:
 
 The target is a web application that allows users to freely publish their favourite ~~XSS payloads~~, profound literary reflections and thoughts on the misery of the human condition ✒️🪶🖋️.
 
-![ralph](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXRtMjJ5ZWowY3F6aTZ1cDZtZmQ0aHFyYnM5bmplcnRudjh4ZWRkMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7btZ0z93NMIXUj7i/giphy.gif)
+![ralph](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDF6bng5eGt4MHFsbm1oYzB3YjR2bDRoOGgzcjFhcThxb3JvbXpjcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMI5WLGkftxKJeE/giphy.gif)
 
 ![home](./imgs/home.png)
 
