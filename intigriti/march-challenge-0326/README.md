@@ -1,4 +1,4 @@
-# Intigriti's March challenge 0326 by [](https://x.com/d3dn0v4)
+# Intigriti's March challenge 0326 by [Kulindu](https://twitter.com/KulinduKodi)
 
 ## Description 
 
