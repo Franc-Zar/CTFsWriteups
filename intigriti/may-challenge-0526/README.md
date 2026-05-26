@@ -19,7 +19,7 @@ Get started:
 
 ## TL;DR
 
-The `/testimonials` endpoint is vulnerable to **stored DOM XSS **through unsanitized username rendering.
+The `/testimonials` endpoint is vulnerable to **stored DOM XSS** through unsanitized username rendering.
 
 - `nameDiv.innerHTML = t.user_name` is the vulnerable sink
   - `t.user_name` flows from `/api/profile` → `/api/testimonials` without sanitization
